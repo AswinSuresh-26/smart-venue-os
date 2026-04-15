@@ -1,0 +1,6 @@
+runtime: python311
+
+entrypoint: uvicorn main:app --host 0.0.0.0 --port 8080
+
+env_variables:
+  ANTHROPIC_API_KEY: "SET_THIS_IN_CLOUD_RUN_CONSOLE"

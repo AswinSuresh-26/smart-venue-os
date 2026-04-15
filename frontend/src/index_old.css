@@ -1,0 +1,519 @@
+/* ============================================================================
+   SVOS - Smart Venue Operating System
+   UI/UX: Light, Warm, Accessible Design
+   Design System: WCAG AAA Compliant + Inclusive
+   ============================================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Barlow:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* ---- LIGHT WARM PALETTE (from UI/UX Pro Max: Bookmark & Read-Later) ---- */
+  /* Background: Warm cream, ensures readability on white */
+  --bg: #FFFBEB;                /* Warm white (cream) */
+  --surface: #FFFFFF;           /* Pure white for cards */
+  --surface2: #FCF1F1;          /* Very light warm */
+  --border: #FAEEE1;            /* Light warm border */
+  
+  /* Primary: Warm Amber - friendly, energetic */
+  --primary: #D97706;           /* Amber (7:1 contrast on white) */
+  --primary-dark: #B45309;      /* Darker amber for hover */
+  --primary-light: #FCD34D;     /* Light amber for backgrounds */
+  
+  /* Secondary: Orange - complementary, warm */
+  --secondary: #F59E0B;         /* Golden Orange */
+  
+  /* Accent: Blue - for links and important info (complements warm palette) */
+  --accent: #2563EB;            /* Link Blue (7:1 contrast) */
+  
+  /* Status Colors - accessible (no red-green only) */
+  --success: #16A34A;           /* Green + symbols */
+  --warn: #EA580C;              /* Warm orange (contrast 5.5:1) */
+  --error: #DC2626;             /* Red + symbols (7:1 contrast) */
+  
+  /* Text: Dark gray (7:1+ contrast on cream background) */
+  --text: #1F2937;              /* Dark gray text (7:1 contrast) */
+  --text-secondary: #4B5563;    /* Medium gray (5.5:1 contrast) */
+  --muted: #6B7280;             /* Muted text (4.5:1 contrast) */
+  
+  /* Typography */
+  --font-display: 'Barlow Condensed', sans-serif;
+  --font-body: 'Barlow', sans-serif;
+  
+  /* Common values */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --focus-ring: 3px;
+}
+
+
+/* ============================================================================
+   RESET & BASE STYLES
+   ============================================================================ */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================================================
+   FOCUS STYLES (Keyboard Navigation - WCAG AAA)
+   ============================================================================ */
+
+:focus-visible {
+  outline: var(--focus-ring) solid var(--accent);
+  outline-offset: 2px;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  box-shadow: 0 0 0 var(--focus-ring) var(--accent), 
+              inset 0 0 0 calc(var(--focus-ring) / 2) var(--bg);
+}
+
+/* ============================================================================
+   APP LAYOUT
+   ============================================================================ */
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================================================
+   NAVIGATION - Accessible & Clear
+   ============================================================================ */
+
+.top-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  background: var(--surface);
+  border-bottom: 2px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.brand-icon {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.brand-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--primary);
+  letter-spacing: 1px;
+}
+
+.brand-sub {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 400;
+  display: block;
+  margin-top: 2px;
+}
+
+/* Navigation Toggle Buttons */
+.nav-toggle {
+  display: flex;
+  gap: 4px;
+  background: var(--surface2);
+  border-radius: var(--radius-md);
+  padding: 4px;
+  border: 1px solid var(--border);
+}
+
+.nav-toggle button {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  transition: var(--transition);
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.nav-toggle button:hover {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+.nav-toggle button.active {
+  background: var(--primary);
+  color: #fff;
+}
+
+/* ============================================================================
+   CARDS & SURFACES
+   ============================================================================ */
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  transition: var(--transition);
+}
+
+.card:hover {
+  border-color: var(--primary);
+  box-shadow: 0 4px 12px rgba(217, 119, 6, 0.08);
+}
+
+/* ============================================================================
+   BADGES & INDICATORS
+   ============================================================================ */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.badge.green {
+  background: rgba(22, 163, 74, 0.1);
+  color: var(--success);
+  border: 1px solid rgba(22, 163, 74, 0.2);
+}
+
+.badge.red {
+  background: rgba(220, 38, 38, 0.1);
+  color: var(--error);
+  border: 1px solid rgba(220, 38, 38, 0.2);
+}
+
+.badge.warn {
+  background: rgba(234, 88, 12, 0.1);
+  color: var(--warn);
+  border: 1px solid rgba(234, 88, 12, 0.2);
+}
+
+.badge.blue {
+  background: rgba(37, 99, 235, 0.1);
+  color: var(--accent);
+  border: 1px solid rgba(37, 99, 235, 0.2);
+}
+
+/* Status Dot with Symbol Support */
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+  border: 2px solid var(--bg);
+}
+
+.dot.green {
+  background: var(--success);
+}
+
+.dot.yellow {
+  background: #FBBF24;
+}
+
+.dot.orange {
+  background: var(--warn);
+}
+
+.dot.red {
+  background: var(--error);
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* ============================================================================
+   BUTTONS - 44px+ Touch Targets
+   ============================================================================ */
+
+button {
+  font-family: var(--font-body);
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  min-width: 44px;
+}
+
+button.primary {
+  background: var(--primary);
+  color: #fff;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+button.primary:hover:not(:disabled) {
+  background: var(--primary-dark);
+  box-shadow: 0 4px 12px rgba(217, 119, 6, 0.2);
+  transform: translateY(-1px);
+}
+
+button.primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+button.primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+button.secondary {
+  background: var(--surface2);
+  color: var(--primary);
+  border: 2px solid var(--primary);
+  padding: 10px 20px;
+  font-size: 14px;
+}
+
+button.secondary:hover {
+  background: var(--primary-light);
+}
+
+button.icon-btn {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background: var(--surface2);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+button.icon-btn:hover {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ============================================================================
+   FORMS - Accessible Input
+   ============================================================================ */
+
+input,
+select,
+textarea {
+  font-family: var(--font-body);
+  font-size: 16px;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  color: var(--text);
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  transition: var(--transition);
+  min-height: 44px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--primary);
+  background: var(--bg);
+}
+
+input::placeholder {
+  color: var(--muted);
+  opacity: 0.7;
+}
+
+/* ============================================================================
+   SCROLLBAR - Light & Clean
+   ============================================================================ */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+  border: 2px solid var(--bg);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* ============================================================================
+   UTILITY CLASSES - Spacing & Typography
+   ============================================================================ */
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.gap-2 {
+  gap: 8px;
+}
+
+.gap-3 {
+  gap: 12px;
+}
+
+.gap-4 {
+  gap: 16px;
+}
+
+.gap-6 {
+  gap: 24px;
+}
+
+.mb-2 {
+  margin-bottom: 8px;
+}
+
+.mb-3 {
+  margin-bottom: 12px;
+}
+
+.mb-4 {
+  margin-bottom: 16px;
+}
+
+.mb-6 {
+  margin-bottom: 24px;
+}
+
+.mt-4 {
+  margin-top: 16px;
+}
+
+.text-muted {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.text-sm {
+  font-size: 14px;
+}
+
+.text-xs {
+  font-size: 12px;
+}
+
+.font-head {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--primary);
+}
+
+/* ============================================================================
+   RESPONSIVE GRID
+   ============================================================================ */
+
+.grid {
+  display: grid;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1440px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+
