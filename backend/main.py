@@ -2,9 +2,7 @@
 SVOS Backend - FastAPI
 Handles:
 - Google Gemini API proxy (keeps key server-side)
-- Crowd data seeding to Firebase
-- Google Cloud Pub/Sub real-time streaming
-- Google Cloud BigQuery analytics logging
+- Crowd data seeding
 - Health check endpoint
 """
 
@@ -19,10 +17,6 @@ from pydantic import BaseModel
 from typing import List, Optional
 import httpx
 
-# Google Cloud imports
-from google.cloud import pubsub_v1
-from google.cloud import bigquery
-
 app = FastAPI(title="SVOS Backend", version="1.0.0")
 
 app.add_middleware(
@@ -35,19 +29,7 @@ app.add_middleware(
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
 GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"
 
-# Google Cloud configuration
-GCP_PROJECT_ID = os.getenv("GCP_PROJECT_ID", "diesel-command-493401-q7")
-PUBSUB_TOPIC = os.getenv("PUBSUB_CROWD_TOPIC", "crowd-data")
-BIGQUERY_DATASET = os.getenv("BIGQUERY_DATASET", "svos_analytics")
-BIGQUERY_TABLE = os.getenv("BIGQUERY_TABLE", "crowd_events")
-
-# Initialize Google Cloud clients
-try:
-    pubsub_publisher = pubsub_v1.PublisherClient()
-    topic_path = pubsub_publisher.topic_path(GCP_PROJECT_ID, PUBSUB_TOPIC)
-    PUBSUB_ENABLED = True
-except Exception as e:
-    print(f"⚠️ Pub/Sub not initialized: {e}")
+# ---- Pydantic Models ----
     PUBSUB_ENABLED = False
 
 try:

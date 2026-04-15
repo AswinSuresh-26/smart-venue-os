@@ -33,8 +33,8 @@ This scales beyond stadiums → airports, concerts, malls, festivals.
 - Better staff coordination
 - Safer, happier attendees
 
-🔗 GitHub: [INSERT REPO URL]
-📱 Demo: [INSERT DEPLOYED URL]
+🔗 GitHub: https://github.com/AswinSuresh-26/smart-venue-os
+🏃 Run Locally: Clone repo → `npm run dev` → Open http://localhost:5174
 
 Huge thanks to Google Cloud services + Google Gemini AI for the AI backbone.
 
